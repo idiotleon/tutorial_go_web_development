@@ -2,10 +2,19 @@ package main
 
 import "net/http"
 
-func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello World"))
-	})
+type myHandler struct{}
 
-	http.ListenAndServe("localhost:8080", nil) // DefaultServeMux
+func (m *myHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Hello World"))
+}
+
+func main() {
+	mh := myHandler{}
+
+	server := http.Server{
+		Addr:    "localhost:8080",
+		Handler: &mh,
+	}
+
+	server.ListenAndServe()
 }
