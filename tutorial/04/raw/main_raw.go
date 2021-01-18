@@ -1,4 +1,4 @@
-package main
+package main_raw
 
 import "net/http"
 
