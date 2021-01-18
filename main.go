@@ -1,29 +1,21 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 )
 
 func main() {
-	server := http.Server{
-		Addr: "localhost: 8080",
-	}
+	http.HandleFunc("/home", func(w http.ResponseWriter, r *http.Request) {
+		url := r.URL
+		query := url.Query()
 
-	http.HandleFunc("/url", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, r.URL.Fragment)
+		id := query["id"]
+		log.Println(id)
 
-		fmt.Fprintln(w, r.Header)
-		fmt.Fprintln(w, r.Header["Accept-Encoding"])
-		fmt.Fprintln(w, r.Header.Get("Accept-Encoding"))
+		name := query.Get("name")
+		log.Println(name)
 	})
 
-	http.HandleFunc("/post", func(w http.ResponseWriter, r *http.Request) {
-		length := r.ContentLength
-		body := make([]byte, length)
-		r.Body.Read(body)
-		fmt.Println(w, string(body))
-	})
-
-	server.ListenAndServe()
+	http.ListenAndServe("localhost:8080", nil)
 }
