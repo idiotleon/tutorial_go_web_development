@@ -1,1 +1,1 @@
-A literal follow-up with the [tutorial](https://www.bilibili.com/video/BV1Xv411k7Xn) provided by Xu Yang
+A literal follow-up with the [tutorial](https://www.bilibili.com/video/BV1Xv411k7Xn) (in Chinese) provided by Xu Yang

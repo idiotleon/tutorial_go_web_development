@@ -1,21 +1,19 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"net/http"
 )
 
 func main() {
-	http.HandleFunc("/home", func(w http.ResponseWriter, r *http.Request) {
-		url := r.URL
-		query := url.Query()
+	server := http.Server{
+		Addr: "localhost:8080",
+	}
 
-		id := query["id"]
-		log.Println(id)
-
-		name := query.Get("name")
-		log.Println(name)
+	http.HandleFunc("/process", func(w http.ResponseWriter, r *http.Request) {
+		r.ParseForm()
+		fmt.Fprintln(w, r.Form)
 	})
 
-	http.ListenAndServe("localhost:8080", nil)
+	server.ListenAndServe()
 }
